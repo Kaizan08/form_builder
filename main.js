@@ -85,14 +85,12 @@ var title = document.querySelector('.title');
 function main(){
     createH1(title, 'Sign Up For My Web App', 'title');
     for (var i = 0; i < formData.length; i++){
-        if (formData[i]["type"] == 'text'){
+        if (formData[i]["type"] == 'text' || formData[i]["type"] == 'tel' || formData[i]["type"] == 'email'){
             createTextInput(formData[i], formElement);
-        } else if (formData[i]["type"] == 'email'){
-            createEmailInput(formData[i], formElement);
-        } else if (formData[i]["type"] == 'tel'){
-            createTelInput(formData[i], formElement);
         } else if (formData[i]["type"] == 'textarea'){
             createTextArea(formData[i], formElement);
+        } else {
+            createOption(formData[i], formElement);
         }
     }
 }
@@ -103,22 +101,7 @@ function createH1(parent, text, classid){
     heading.classList = classid;
     parent.appendChild(heading);
 }
-
 function createTextInput(values, parent){
-    var inputfield = document.createElement('INPUT');
-    inputfield.type = values.type;
-    inputfield.placeholder = values.icon +' '+ values.label;
-    inputfield.id = values.id;
-    parent.appendChild(inputfield);
-}
-function createEmailInput(values, parent){
-    var inputfield = document.createElement('INPUT');
-    inputfield.type = values.type;
-    inputfield.placeholder = values.icon +' '+ values.label;
-    inputfield.id = values.id;
-    parent.appendChild(inputfield);
-}
-function createTelInput(values, parent){
     var inputfield = document.createElement('INPUT');
     inputfield.type = values.type;
     inputfield.placeholder = values.icon +' '+ values.label;
@@ -132,7 +115,17 @@ function createTextArea(values, parent){
     parent.appendChild(inputfield);
 }
 function createOption(values, parent){
-    
+    var inputfield = document.createElement('select');
+    inputfield.placeholder = values.icon +' '+ values.label;
+    inputfield.id = values.id;
+    parent.appendChild(inputfield);
+    inputfield = document.querySelector("select");
+    for (var i = 0; i < values.options.length; i++){
+        optionfield = document.createElement('option');
+        optionfield.innerHTML = values.options[i]['label'];
+        optionfield.value = values.options[i].value;
+        inputfield.appendChild(optionfield);
+    }
 }
 
 main();
