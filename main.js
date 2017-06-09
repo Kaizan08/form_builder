@@ -64,7 +64,7 @@ var formData = [
   },
   {
     "type": "tel",
-    "label": "Mobil Number",
+    "label": "Mobile Number",
     "id": "user-mobile",
     "icon": "fa-mobile-phone",
     "options": []
@@ -93,6 +93,11 @@ function main(){
             createOption(formData[i], formElement);
         }
     }
+    var div = document.createElement('div');
+    div.classList = 'sub-div';
+    formElement.appendChild(div);
+    var newdiv = document.querySelector('.sub-div');
+    createSubmitBtn(newdiv);
 }
 
 function createH1(parent, text, classid){
@@ -104,28 +109,38 @@ function createH1(parent, text, classid){
 function createTextInput(values, parent){
     var inputfield = document.createElement('INPUT');
     inputfield.type = values.type;
-    inputfield.placeholder = values.icon +' '+ values.label;
+    inputfield.placeholder = values.label;
     inputfield.id = values.id;
     parent.appendChild(inputfield);
 }
 function createTextArea(values, parent){
     var inputfield = document.createElement('textarea');
-    inputfield.placeholder = values.icon +' '+ values.label;
+    inputfield.placeholder = values.label;
     inputfield.id = values.id;
     parent.appendChild(inputfield);
 }
 function createOption(values, parent){
     var inputfield = document.createElement('select');
-    inputfield.placeholder = values.icon +' '+ values.label;
+    inputfield.placeholder = values.label;
     inputfield.id = values.id;
     parent.appendChild(inputfield);
     inputfield = document.querySelector("select");
+    var def = document.createElement('option');
+    def.innerHTML = 'Select language...';
+    inputfield.appendChild(def);
     for (var i = 0; i < values.options.length; i++){
         optionfield = document.createElement('option');
         optionfield.innerHTML = values.options[i]['label'];
         optionfield.value = values.options[i].value;
         inputfield.appendChild(optionfield);
     }
+}
+function createSubmitBtn(parent){
+    var submitbtn = document.createElement('input');
+    submitbtn.type = 'submit';
+    submitbtn.classList = 'submit';
+    submitbtn.value = 'Submit Form';
+    parent.appendChild(submitbtn);
 }
 
 main();
